@@ -1,24 +1,15 @@
-# Azure DevOps Pipeline para Hazelcast Client no MicroK8s
-# Pipeline para build e deploy apenas do cliente Hazelcast
-pool:
-  name: Arm64
-  vmImage: 'ubuntu-22.04'
-
 trigger:
-  branches:
-    include:
-      - main-1
-      - main
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: Kubernetes@1
   inputs:
     connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint:  'K8SOracleCloud'
+    kubernetesServiceEndpoint: '<your-kubernetes-service-connection>'
     namespace: 'jaeger'
     command: 'apply'
-    useConfigMapForSecrets: true
-    configMapName: 'jaeger-config'
-    secretName: 'jaeger-secrets'
     arguments: '-f k8s/'
     force: true
