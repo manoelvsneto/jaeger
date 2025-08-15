@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaeger
+  namespace: jaeger
+  labels:
+    app: jaeger
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaeger
+  template:
+    metadata:
+      labels:
+        app: jaeger
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: arm64
+      containers:
+      - name: jaeger
+        image: jaegertracing/all-in-one:1.53
+        ports:
+        - containerPort: 16686
+          name: jaeger-ui
+        - containerPort: 14268
+          name: jaeger-coll
+        - containerPort: 6831
+          protocol: UDP
+          name: jaeger-agent
+        envFrom:
+        - configMapRef:
+            name: jaeger-config

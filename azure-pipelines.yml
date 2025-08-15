@@ -1,0 +1,18 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Kubernetes@1
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceEndpoint: '<your-kubernetes-service-connection>'
+    namespace: 'jaeger'
+    command: 'apply'
+    useConfigMapForSecrets: true
+    configMapName: 'jaeger-config'
+    secretName: 'jaeger-secrets'
+    arguments: '-f k8s/'
+    force: true

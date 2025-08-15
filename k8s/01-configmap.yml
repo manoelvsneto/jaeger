@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaeger-config
+  namespace: jaeger
+data:
+  SPAN_STORAGE_TYPE: "memory"
+  LOG_LEVEL: "debug"

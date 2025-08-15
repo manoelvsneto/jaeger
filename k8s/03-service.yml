@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger
+  namespace: jaeger
+  labels:
+    app: jaeger
+spec:
+  selector:
+    app: jaeger
+  ports:
+  - name: jaeger-ui
+    port: 16686
+    targetPort: 16686
+  - name: jaeger-coll
+    port: 14268
+    targetPort: 14268
+  - name: jaeger-agent
+    port: 6831
+    targetPort: 6831
+    protocol: UDP
