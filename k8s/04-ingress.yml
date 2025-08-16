@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: "jaeger.your-domain.com"
+  - host: "jaeger.archse.eng.br"
     http:
       paths:
       - path: /
