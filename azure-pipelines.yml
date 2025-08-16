@@ -20,6 +20,7 @@ stages:
       displayName: Deploy to Kubernetes cluster
       inputs:
         kubernetesServiceConnection: K8SOracleCloud
+        namespace: jaeger 
         action: deploy
         enableKubectlCommand: true
         arguments: --insecure-skip-tls-verify
