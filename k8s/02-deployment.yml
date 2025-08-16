@@ -26,8 +26,23 @@ spec:
         - containerPort: 14268
           name: jaeger-coll
         - containerPort: 6831
-          protocol: UDP
           name: jaeger-agent
+          protocol: UDP
         envFrom:
         - configMapRef:
             name: jaeger-config
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 16686
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 2
+          failureThreshold: 6
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 16686
+          initialDelaySeconds: 15
+          periodSeconds: 20
+
