@@ -16,13 +16,18 @@ stages:
     displayName: Build
     steps:
 
-
-    - task: Kubernetes@1
+    - task: KubernetesManifest@0
       displayName: Deploy to Kubernetes cluster
       inputs:
-        connectionType: 'Kubernetes Service Connection'
         kubernetesServiceConnection: K8SOracleCloud
-        namespace: 'jaeger'
-        command: 'apply'
-        arguments: '-f k8s/'
-        force: true
+        action: deploy
+        manifests: |
+          $(Build.SourcesDirectory)/k8s/00-namespace.yml
+          $(Build.SourcesDirectory)/k8s/01-configmap.yml
+          $(Build.SourcesDirectory)/k8s/02-deployment.yml
+          $(Build.SourcesDirectory)/k8s/03-service.yml
+          $(Build.SourcesDirectory)/k8s/04-ingress.yml
+          $(Build.SourcesDirectory)/k8s/05-secrets.yml
+        imagePullSecrets: |
+          $(imagePullSecret)
+        containers: 'jaegertracing/all-in-one:1.72.0'
