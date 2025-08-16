@@ -28,6 +28,4 @@ stages:
           $(Build.SourcesDirectory)/k8s/03-service.yml
           $(Build.SourcesDirectory)/k8s/04-ingress.yml
           $(Build.SourcesDirectory)/k8s/05-secrets.yml
-        imagePullSecrets: |
-          $(imagePullSecret)
         containers: 'jaegertracing/all-in-one:1.72.0'
