@@ -21,6 +21,8 @@ stages:
       inputs:
         kubernetesServiceConnection: K8SOracleCloud
         action: deploy
+        enableKubectlCommand: true
+        arguments: --insecure-skip-tls-verify
         manifests: |
           $(Build.SourcesDirectory)/k8s/00-namespace.yml
           $(Build.SourcesDirectory)/k8s/01-configmap.yml
