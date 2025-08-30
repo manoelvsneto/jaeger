@@ -6,7 +6,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-http01"
 spec:
-  ingressClassName: nginx   # ou "public", se esse for o ingress class do seu cluster
+  ingressClassName: public
   rules:
   - host: jaeger.archse.eng.br
     http:
@@ -21,6 +21,5 @@ spec:
   tls:
   - hosts:
     - jaeger.archse.eng.br
-    secretName: jaeger-tls   # secret onde o cert-manager vai gravar o certificado
-
+    secretName: jaeger-tls
 
