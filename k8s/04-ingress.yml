@@ -4,11 +4,9 @@ metadata:
   name: jaeger-ingress
   namespace: jaeger
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
     cert-manager.io/cluster-issuer: "letsencrypt-http01"
 spec:
-  ingressClassName: nginx
+  ingressClassName: nginx   # ou "public", se esse for o ingress class do seu cluster
   rules:
   - host: jaeger.archse.eng.br
     http:
@@ -20,4 +18,9 @@ spec:
             name: jaeger
             port:
               number: 16686
+  tls:
+  - hosts:
+    - jaeger.archse.eng.br
+    secretName: jaeger-tls   # secret onde o cert-manager vai gravar o certificado
+
 
