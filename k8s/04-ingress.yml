@@ -4,25 +4,24 @@ metadata:
   name: jaeger-ingress
   namespace: jaeger
   annotations:
+    kubernetes.io/ingress.class: public
     cert-manager.io/cluster-issuer: letsencrypt-http01
     acme.cert-manager.io/http01-edit-in-place: "true"
-    kubernetes.io/ingress.class: public
-    nginx.ingress.kubernetes.io/ssl-redirect: "true" 
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
 spec:
-  ingressClassName: public
   rules:
-  - host: jaeger.archse.eng.br
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: jaeger
-            port:
-              number: 16686
+    - host: jaeger.archse.eng.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jaeger  
+                port:
+                  number: 16686         # porta HTTP do Jaeger UI
   tls:
-  - hosts:
-    - jaeger.archse.eng.br
-    secretName: jaeger-tls
+    - hosts: [ "jaeger.archse.eng.br" ]
+      secretName: jaeger-archse-tls 
 
