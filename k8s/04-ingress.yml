@@ -4,7 +4,10 @@ metadata:
   name: jaeger-ingress
   namespace: jaeger
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-http01"
+    cert-manager.io/cluster-issuer: letsencrypt-http01
+    acme.cert-manager.io/http01-edit-in-place: "true"
+    kubernetes.io/ingress.class: public
+    nginx.ingress.kubernetes.io/ssl-redirect: "true" 
 spec:
   ingressClassName: public
   rules:
